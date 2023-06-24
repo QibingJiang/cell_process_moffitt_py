@@ -3339,8 +3339,10 @@ class CellClassifier(object):
                 #         file.write("%s, " % tracks[tra_i].cell_diff[j])
                 #     file.write(";\n")
 
-                cell_diff_row = tracks[tra_i].cell_diff.copy()
                 #################################################################### start
+                cell_diff_row = tracks[tra_i].cell_diff.copy()
+                diff_mm = np.zeros_like(cell_diff_row)
+                diff_mm_der = np.zeros_like(cell_diff_row)
 
                 tmp = np.where(cell_diff_row[:] > 3 * diff_thr)
                 if (len(tmp[0]) == 0):
@@ -3349,8 +3351,6 @@ class CellClassifier(object):
 
                     max_v = np.nan
                     min_v = np.nan
-                    diff_mm = np.zeros_like(cell_diff_row)
-                    diff_mm_der = np.zeros_like(cell_diff_row)
                     diff_mm[:] = np.nan
                     diff_mm_der[:] = np.nan
                     for i in range(self.image_amount - 1, -1, -1):
