@@ -3385,6 +3385,10 @@ class CellClassifier(object):
 
                 area_diff = np.zeros(array_size)
                 area_diff[1:] = np.abs(np.diff(tracks[tra_i].area))
+                area_diff_mm = np.zeros_like(area_diff)
+                area_diff_mm[:] = np.nan
+                area_diff_mm_der = np.zeros_like(area_diff)
+                area_diff_mm_der[:] = np.nan
 
                 if (file):
                     track_mat[:,6] = area_diff[:self.image_amount]
@@ -3397,10 +3401,6 @@ class CellClassifier(object):
                 else:
                     max_v = np.nan
                     min_v = np.nan
-                    area_diff_mm = np.zeros_like(area_diff)
-                    area_diff_mm[:] = np.nan
-                    area_diff_mm_der = np.zeros_like(area_diff)
-                    area_diff_mm_der[:] = np.nan
                     for i in range(self.image_amount - 1, -1, -1):
                         if (area_diff[i] > 0):
                             if (np.isnan(max_v) or area_diff[i] > max_v):
