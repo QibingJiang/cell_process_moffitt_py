@@ -15,7 +15,7 @@ import numpy as np
 import sys
 import re
 from util import read_frame
-# import shutil
+import shutil
 
 if not sys.warnoptions:
     import warnings
@@ -128,7 +128,7 @@ def main(configure_path = "./configure.txt", path = "Work/ground_truth/preproces
 
     os.makedirs(out_path, exist_ok = True)
 
-    for new_folder in ["images_ucf/Beacon_" + str(Beacon) + "/", "Misc/Results_ucf/", "Results/", "Misc/info_ucf/"]:
+    for new_folder in ["images_ucf/Beacon_" + str(Beacon) + "/", "Cell_tracks/", "Results/"]:
         os.makedirs(out_path + new_folder, exist_ok = True)
 
     process_one_video_main(path, Beacon, 1, None, out_path, paras_dict)
@@ -319,11 +319,15 @@ def process_one_video_main(path, Beacon, data_type, pt, out_path, paras_dict):
 
     # mark(classifier, path, Beacon, data_type, scale)
 
-    # dir_path = out_path + "images_ucf/"
-    # try:
-    #     shutil.rmtree(dir_path)
-    # except OSError as e:
-    #     print("Error: %s : %s" % (dir_path, e.strerror))
+    dir_path = out_path + "images_ucf/Beacon_" + str(Beacon) + "/"
+    try:
+        shutil.rmtree(dir_path)
+        # os.remove(dir_path)
+        # if(len(os.listdir(out_path + "images_ucf")) == 0):
+        #     os.remove(out_path + "images_ucf")
+    except OSError as e:
+        print("Error: %s : %s" % (dir_path, e.strerror))
+
 
     cv2.destroyAllWindows()
 
@@ -576,6 +580,8 @@ if __name__ == "__main__":
     # execute main
     # main(sys.argv[1], sys.argv[2])
 
+    print(sys.argv)
+
     if(len(sys.argv[1:]) > 1):
         main(*sys.argv[1:])
     else:
@@ -588,5 +594,7 @@ if __name__ == "__main__":
         # main(configure_path = "./configure.txt", path = "/home/qibing/disk_16t/Pt210/RawData/Beacon-73", out_path = "Default")
         # main(configure_path = "./configure.txt", path = "/home/qibing/disk_16t/Pt180/RawData/Beacon-77", out_path = "Default")
         # main(configure_path = "./configure.txt", path = "/home/qibing/disk_16t/Pt180/RawData/Beacon-32", out_path = "Default")
-        main(configure_path = "./configure.txt", path = "/home/qibing/disk_16t/qibing/Pt204/RawData/Beacon-73/", out_path = "Default")
+        # main(configure_path = "./configure.txt", path = "/home/qibing/disk_16t/qibing/Pt204/RawData/Beacon-73/", out_path = "Default")
+        # main(configure_path = "./configure.txt", path = "/home/qibing/disk_16t/qibing/Pt174/RawData/Beacon-1/", out_path = "Default") The beacon only has a couple of cells.
+        pass
 

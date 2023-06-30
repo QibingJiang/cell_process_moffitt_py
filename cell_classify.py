@@ -3300,7 +3300,7 @@ class CellClassifier(object):
         # gt = False
 
         # make it comment
-        file = open(outpath + "Misc/info_ucf/Beacon_" + str(Beacon) + "_tracks_death_log" + ".txt", "w")
+        file = open(outpath + "Cell_tracks/Beacon_" + str(Beacon) + "_tracks_death_log" + ".txt", "w")
         file.write("track_id, image_index, cell_diff, cell_diff_max_min, cell_diff_max_min_der, area, area_diff, area_diff_max_min, area_diff_max_min_der, cell_death\n")
 
         live_dead_table = np.zeros((self.image_amount, 4))
@@ -3493,11 +3493,11 @@ class CellClassifier(object):
             os.makedirs(outpath)
 
         # np.savetxt(outpath + "live_dead_table_" + str(window_radius) + "_" + str(diff_thr) + "_" + str(area_thr) + time.strftime("%d_%H_%M", time.localtime()) + ".txt", live_dead_table, fmt='%d')
-        np.savetxt(outpath + "Misc/info_ucf/Beacon_" + str(Beacon) + "_live_dead_table.txt", live_dead_table, fmt='%d')  # , fmt='%d'
+        np.savetxt(outpath + "Cell_tracks/Beacon_" + str(Beacon) + "_live_dead_table.txt", live_dead_table, fmt='%d')  # , fmt='%d'
 
-        with open(outpath + "Misc/Results_ucf/Results_" + "{0:0=3d}".format(Beacon) + "_old.csv", 'w') as f:
-            f.write("Beacon-" + "{0:0=3d}".format(Beacon) + ',')
-            print(*live_dead_table[:, 2], sep=',', file=f)
+        # with open(outpath + "Misc/Results_ucf/Results_" + "{0:0=3d}".format(Beacon) + "_old.csv", 'w') as f:
+        #     f.write("Beacon-" + "{0:0=3d}".format(Beacon) + ',')
+        #     print(*live_dead_table[:, 2], sep=',', file=f)
 
         with open(outpath + "Results/Results_" + "{0:0=3d}".format(Beacon) + ".csv", 'w') as f:
             f.write("Beacon-" + "{0:0=3d}".format(Beacon) + ',')
@@ -3669,7 +3669,7 @@ class CellClassifier(object):
             f_g_truth.close()
             f_die_time.close()
 
-        f_cell_tracks = open(outpath + "Misc/info_ucf/Beacon_" + str(Beacon) + "_cell_tracks.txt", 'w')
+        f_cell_tracks = open(outpath + "Cell_tracks/Beacon_" + str(Beacon) + "_cell_tracks.txt", 'w')
         f_cell_tracks.write("track_id,x,y,area,core_brightness_average,eccentricity\n")
         for tracks in (self.tracks, self.del_tracks):
             for idx in range(len(tracks)):
